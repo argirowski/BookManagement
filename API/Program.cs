@@ -1,6 +1,8 @@
 using Application.Features.Queries.GetAllBooks;
 using Application.Mapping;
+using Application.Validators;
 using Domain.Interfaces;
+using FluentValidation;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -9,7 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// Add FluentValidation and Validators
 builder.Services.AddControllers();
+//builder.Services
+//    .AddFluentValidationAutoValidation()
+//    .AddFluentValidationClientsideAdapters();
+
+//builder.Services.AddValidatorsFromAssemblyContaining<AddBookCommandValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<AddBookCommandValidator>();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

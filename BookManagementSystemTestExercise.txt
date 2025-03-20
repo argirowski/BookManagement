@@ -1,0 +1,51 @@
+📌 Task Overview
+You will build a Book Management System where users can add, edit, view, and delete books, and each book can belong to multiple categories (many-to-many relationship).
+
+🛠 Requirements
+1️⃣ Backend - .NET Core API with Entity Framework Core
+✅ Implement CRUD operations for Books and Categories.
+✅ Establish a many-to-many relationship between Books and Categories using a junction table (BookCategory).
+✅ Use DTOs & AutoMapper to transform database entities for the frontend.
+✅ Use FluentValidation to validate API requests.
+✅ Implement EF Core Migrations to create and update the database schema.
+
+2️⃣ Frontend - React TypeScript
+✅ Implement a Book Management Page:
+
+Display a list of books with their associated categories.
+Allow users to create, edit, and delete books.
+✅ Implement a Category Management Page:
+CRUD operations for categories.
+Allow users to assign multiple categories to a book.
+✅ Use Formik + Yup for form validation.
+✅ Use React Router for navigation.
+✅ Use Axios to call the API.
+📌 API Endpoints
+📌 BookController (/api/books)
+🔹 GET /api/books → Fetch all books (including their categories).
+🔹 GET /api/books/{id} → Fetch a specific book by ID.
+🔹 POST /api/books → Add a new book with categories.
+🔹 PUT /api/books/{id} → Update an existing book (including categories).
+🔹 DELETE /api/books/{id} → Delete a book.
+
+📌 CategoryController (/api/categories)
+🔹 GET /api/categories → Fetch all categories.
+🔹 POST /api/categories → Add a new category.
+🔹 DELETE /api/categories/{id} → Delete a category.
+
+📌 Bonus Features (Optional)
+✅ Pagination & Search: Implement search functionality to filter books by category.
+✅ Tag System: Display book categories as clickable tags.
+✅ Advanced Validation: Prevent duplicate books/categories.
+✅ Docker Support: Containerize the backend and frontend.
+✅ Unit Testing:
+
+Use xUnit and EF Core InMemory for API testing.
+Use Jest + React Testing Library for frontend testing.
+💡 What You'll Learn
+✔ How to implement many-to-many relationships in Entity Framework Core.
+✔ How to structure a full-stack CRUD application using React & .NET Core.
+✔ How to create and consume RESTful APIs.
+✔ How to use DTOs, AutoMapper, and FluentValidation.
+✔ How to manage state with React + TypeScript.
+✔ How to handle form validation and API calls using Formik/Yup & Axios.
