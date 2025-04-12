@@ -1,6 +1,4 @@
 # Backend
-bin/
-obj/
 API/bin/
 API/obj/
 Application/bin/
@@ -26,6 +24,8 @@ book-management-ui/.env
 BookManagement/obj/
 
 # General
+bin/
+obj/
 *.user
 *.suo
 *.cache
