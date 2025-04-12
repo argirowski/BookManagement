@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
-using Infrastructure.Repositories;
+using Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 

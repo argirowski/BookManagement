@@ -1,5 +1,6 @@
 🎯 Task Overview
-You will build a Book Management System where users can add, edit, view, and delete books, and each book can belong to multiple categories (many-to-many relationship).
+You will build a Book Management System where users can add, edit, view, and delete books,
+and each book can belong to multiple categories (many-to-many relationship).
 
 📌 Requirements
 ➡️ Backend - .NET Core API with Entity Framework Core
