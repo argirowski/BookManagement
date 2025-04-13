@@ -21,11 +21,10 @@ book-management-ui/.env
 
 # BookManagement Folder
 .vs/
-BookManagement/obj/
-
-# General
 bin/
 obj/
+
+# General
 *.user
 *.suo
 *.cache
