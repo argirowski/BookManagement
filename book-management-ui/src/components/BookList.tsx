@@ -111,6 +111,7 @@ const BookList: React.FC = () => {
             onClick={() => navigate("/books/new")}
             className="me-3"
             size="lg"
+            data-testid="add-new-book-button"
           >
             Add New Book
           </Button>

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import HomePage from "./HomePage";
+import HomePage from "../components/HomePage";
 
 describe("HomePage Component", () => {
   test("renders welcome message", () => {

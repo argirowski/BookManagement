@@ -14,7 +14,7 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
       </Modal.Header>
       <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={onConfirm}>
+        <Button variant="danger" onClick={onConfirm} aria-label="Confirm">
           Yes
         </Button>
         <Button variant="secondary" onClick={onHide}>
