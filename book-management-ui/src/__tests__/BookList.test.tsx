@@ -87,4 +87,67 @@ describe("BookList Component", () => {
 
     expect(window.location.pathname).toBe("/books/new");
   });
+
+  it("navigates to book details page when View is clicked", async () => {
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    render(
+      <BrowserRouter>
+        <BookList />
+      </BrowserRouter>
+    );
+
+    await screen.findByText("Book One");
+    const viewButton = screen.getAllByRole("button", { name: /view/i })[0];
+    fireEvent.click(viewButton);
+    expect(window.location.pathname).toBe(`/books/1`);
+  });
+
+  it("navigates to edit book page when Edit is clicked", async () => {
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    render(
+      <BrowserRouter>
+        <BookList />
+      </BrowserRouter>
+    );
+
+    await screen.findByText("Book One");
+    const editButton = screen.getAllByRole("button", { name: /edit/i })[0];
+    fireEvent.click(editButton);
+    expect(window.location.pathname).toBe(`/books/1/edit`);
+  });
+
+  it("navigates to home page when Go to Home Page is clicked", async () => {
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    render(
+      <BrowserRouter>
+        <BookList />
+      </BrowserRouter>
+    );
+
+    await screen.findByText("Book One");
+    const homeButton = screen.getByRole("button", { name: /go to home page/i });
+    fireEvent.click(homeButton);
+    expect(window.location.pathname).toBe("/");
+  });
+
+  it("closes the delete modal when Cancel is clicked", async () => {
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    render(
+      <BrowserRouter>
+        <BookList />
+      </BrowserRouter>
+    );
+
+    await screen.findByText("Book One");
+    fireEvent.click(screen.getAllByText(/delete/i)[0]);
+    // The modal should be open now
+    const cancelButton = screen.getByRole("button", { name: /no/i });
+    fireEvent.click(cancelButton);
+    // The modal should close, so the Cancel button should not be in the document
+    await waitFor(() => {
+      expect(
+        screen.queryByRole("button", { name: /no/i })
+      ).not.toBeInTheDocument();
+    });
+  });
 });
