@@ -97,4 +97,43 @@ describe("AddBook Component", () => {
       });
     });
   });
+
+  it("logs error when addBook fails", async () => {
+    const error = new Error("Add failed");
+    addBookMock.mockRejectedValueOnce(error);
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    render(
+      <BrowserRouter>
+        <AddBook />
+      </BrowserRouter>
+    );
+
+    // Fill in the form
+    fireEvent.change(screen.getByLabelText(/Title/i), {
+      target: { value: "Test Book" },
+    });
+    fireEvent.change(screen.getByLabelText(/Author/i), {
+      target: { value: "Test Author" },
+    });
+    fireEvent.change(screen.getByLabelText(/Published Date/i), {
+      target: { value: "2023-05-16" },
+    });
+
+    // Use userEvent to select a category (e.g., Technology)
+    const selectInput = screen.getByRole("combobox", { name: /Categories/i });
+    fireEvent.keyDown(selectInput, { key: "ArrowDown" });
+    const option = await screen.findByText("Technology");
+    userEvent.click(option);
+
+    // Submit the form
+    fireEvent.click(screen.getByRole("button", { name: /Add Book/i }));
+
+    await waitFor(() => {
+      expect(consoleErrorSpy).toHaveBeenCalledWith("Error adding book:", error);
+    });
+    consoleErrorSpy.mockRestore();
+  });
 });
