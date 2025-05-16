@@ -22,6 +22,7 @@ const BookList: React.FC = () => {
         setLoading(false);
       } catch (error) {
         setLoading(false);
+        console.error(error);
       }
     };
 
@@ -44,6 +45,7 @@ const BookList: React.FC = () => {
       } catch (error) {
         setShowDeleteModal(false);
         setDeleting(false);
+        console.error(error);
       }
     }
   };

@@ -150,4 +150,55 @@ describe("BookList Component", () => {
       ).not.toBeInTheDocument();
     });
   });
+
+  it("handles error when deleteBook fails", async () => {
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    (bookService.deleteBook as jest.Mock).mockRejectedValue(
+      new Error("Delete failed")
+    );
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    render(
+      <BrowserRouter>
+        <BookList />
+      </BrowserRouter>
+    );
+
+    await screen.findByText("Book One");
+    fireEvent.click(screen.getAllByText(/delete/i)[0]);
+    fireEvent.click(screen.getByRole("button", { name: /confirm/i }));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByRole("button", { name: /confirm/i })
+      ).not.toBeInTheDocument();
+    });
+    expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
+    expect(consoleErrorSpy).toHaveBeenCalled();
+    consoleErrorSpy.mockRestore();
+  });
+
+  it("handles error when fetchBooks fails in useEffect", async () => {
+    (bookService.fetchBooks as jest.Mock).mockRejectedValue(
+      new Error("Fetch failed")
+    );
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    render(
+      <BrowserRouter>
+        <BookList />
+      </BrowserRouter>
+    );
+
+    // Wait for the loading spinner to disappear
+    await waitFor(() => {
+      expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
+    });
+    expect(consoleErrorSpy).toHaveBeenCalled();
+    consoleErrorSpy.mockRestore();
+  });
 });
