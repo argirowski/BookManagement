@@ -53,8 +53,9 @@ const AddBook: React.FC = () => {
             <Row className="mt-3">
               <Col md={{ span: 8, offset: 2 }}>
                 <Form.Group controlId="formTitle">
-                  <Form.Label>Title</Form.Label>
+                  <Form.Label htmlFor="title">Title</Form.Label>
                   <Field
+                    id="title"
                     name="title"
                     type="text"
                     className="form-control"
@@ -74,8 +75,9 @@ const AddBook: React.FC = () => {
             <Row className="mt-3">
               <Col md={{ span: 8, offset: 2 }}>
                 <Form.Group controlId="formAuthor">
-                  <Form.Label>Author</Form.Label>
+                  <Form.Label htmlFor="author">Author</Form.Label>
                   <Field
+                    id="author"
                     name="author"
                     type="text"
                     className="form-control"
@@ -95,8 +97,11 @@ const AddBook: React.FC = () => {
             <Row className="mt-3">
               <Col md={{ span: 8, offset: 2 }}>
                 <Form.Group controlId="formPublishedDate">
-                  <Form.Label>Published Date</Form.Label>
+                  <Form.Label htmlFor="publishedDate">
+                    Published Date
+                  </Form.Label>
                   <Field
+                    id="publishedDate"
                     name="publishedDate"
                     type="date"
                     className="form-control"
@@ -115,9 +120,10 @@ const AddBook: React.FC = () => {
             </Row>
             <Row className="mt-3">
               <Col md={{ span: 8, offset: 2 }}>
-                <Form.Group controlId="formCategories">
-                  <Form.Label>Categories</Form.Label>
+                <Form.Group>
+                  <Form.Label htmlFor="category-select">Categories</Form.Label>
                   <Select
+                    inputId="category-select"
                     isMulti
                     name="categoryNames"
                     options={categoryOptions}
