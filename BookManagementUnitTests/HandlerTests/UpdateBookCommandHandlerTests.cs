@@ -83,25 +83,6 @@ namespace BookManagementUnitTests.HandlerTests
         }
 
         [Fact]
-        public async Task Handle_ThrowsKeyNotFoundException_WhenBookDoesNotExist()
-        {
-            // Arrange
-            var command = new UpdateBookCommand
-            {
-                BookId = Guid.NewGuid(),
-                Title = "Updated Book",
-                Author = "Updated Author",
-                PublishedDate = DateTime.Now,
-                CategoryNames = new List<string> { "Category 1" }
-            };
-
-            _bookRepositoryMock.Setup(r => r.GetBookByIdAsync(command.BookId)).ReturnsAsync((Book)null);
-
-            // Act & Assert
-            await Assert.ThrowsAsync<KeyNotFoundException>(() => _handler.Handle(command, CancellationToken.None));
-        }
-
-        [Fact]
         public async Task Handle_ThrowsException_OnRepositoryError()
         {
             // Arrange

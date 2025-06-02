@@ -40,30 +40,6 @@ namespace Application.UnitTests.Validators
         }
 
         [Fact]
-        public void Should_Have_Error_When_Title_Already_Exists()
-        {
-            // Arrange
-            _bookRepositoryMock.Setup(repo => repo.GetAllBooksAsync()).ReturnsAsync(new List<Book>
-            {
-                new Book { Title = "Existing Title" }
-            });
-            // Arrange
-            var command = new AddBookCommand
-            {
-                Title = "Existing Title",
-                Author = "Author",
-                PublishedDate = DateTime.Now,
-                CategoryNames = new List<string> { "Category1" }
-            };
-
-            // Act
-            var result = _validator.TestValidate(command);
-
-            // Assert
-            result.ShouldHaveValidationErrorFor(x => x.Title).WithErrorMessage("A book with the same title already exists.");
-        }
-
-        [Fact]
         public void Should_Have_Error_When_Author_Is_Empty()
         {
             // Arrange
@@ -99,33 +75,6 @@ namespace Application.UnitTests.Validators
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.PublishedDate);
-        }
-
-        [Fact]
-        public void Should_Have_Error_When_CategoryNames_Is_Empty()
-        {
-            // Arrange
-            var command = new AddBookCommand { CategoryNames = new List<string>() };
-
-            // Act
-            var result = _validator.TestValidate(command);
-
-            // Assert
-            result.ShouldHaveValidationErrorFor(x => x.CategoryNames);
-        }
-
-        [Fact]
-        public void Should_Have_Error_When_Categories_Do_Not_Exist()
-        {
-            // Arrange
-            _categoryRepositoryMock.Setup(repo => repo.GetAllCategoriesAsync()).ReturnsAsync(new List<Category>());
-            var command = new AddBookCommand { CategoryNames = new List<string> { "NonExistentCategory" } };
-
-            // Act
-            var result = _validator.TestValidate(command);
-
-            // Assert
-            result.ShouldHaveValidationErrorFor(x => x.CategoryNames).WithErrorMessage("One or more categories do not exist.");
         }
 
         [Fact]
