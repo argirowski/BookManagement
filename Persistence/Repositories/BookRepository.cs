@@ -22,7 +22,7 @@ namespace Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Book> GetBookByIdAsync(Guid bookId)
+        public async Task<Book?> GetBookByIdAsync(Guid bookId)
         {
             return await _context.Books
                 .Include(b => b.BookCategories)

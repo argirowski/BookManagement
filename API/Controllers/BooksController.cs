@@ -46,8 +46,7 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<BookDTO>> UpdateBook(Guid id, UpdateBookCommand command)
         {
-            command.BookId = id;
-
+            command.BookId = id; // Ensure the command has the correct ID
             var result = await _mediator.Send(command);
             return Ok(result);
         }

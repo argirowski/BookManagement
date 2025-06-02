@@ -22,10 +22,6 @@ namespace Application.Features.Commands.UpdateBook
         public async Task<BookDTO> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
         {
             var book = await _bookRepository.GetBookByIdAsync(request.BookId);
-            if (book == null)
-            {
-                throw new KeyNotFoundException($"Book with ID '{request.BookId}' not found.");
-            }
 
             var categories = await _categoryRepository.GetAllCategoriesAsync();
 

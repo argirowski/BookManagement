@@ -104,7 +104,14 @@ namespace BookManagementUnitTests.ValidatorTests
         public void Should_Have_Error_When_CategoryNames_Is_Empty()
         {
             // Arrange
-            var command = new UpdateBookCommand { CategoryNames = new List<string>() };
+            var command = new UpdateBookCommand
+            {
+                BookId = Guid.NewGuid(),
+                Title = "Title",
+                Author = "Author",
+                PublishedDate = DateTime.Now,
+                CategoryNames = new List<string>()
+            };
 
             // Act
             var result = _validator.TestValidate(command);
@@ -140,7 +147,14 @@ namespace BookManagementUnitTests.ValidatorTests
         {
             // Arrange
             _categoryRepositoryMock.Setup(repo => repo.GetAllCategoriesAsync()).ReturnsAsync(new List<Category>());
-            var command = new UpdateBookCommand { CategoryNames = new List<string> { "NonExistentCategory" } };
+            var command = new UpdateBookCommand
+            {
+                BookId = Guid.NewGuid(),
+                Title = "Title",
+                Author = "Author",
+                PublishedDate = DateTime.Now,
+                CategoryNames = new List<string> { "NonExistentCategory" }
+            };
 
             // Act
             var result = _validator.TestValidate(command);

@@ -49,7 +49,13 @@ namespace BookManagementUnitTests.ValidatorTests
         public async Task Should_Not_Have_Error_When_Book_Exists()
         {
             // Arrange
-            var existingBook = new Book { BookId = Guid.NewGuid() };
+            var existingBook = new Book
+            {
+                BookId = Guid.NewGuid(),
+                Title = "Sample Title",
+                Author = "Sample Author",
+                PublishedDate = DateTime.UtcNow
+            };
             _bookRepositoryMock.Setup(repo => repo.GetBookByIdAsync(It.IsAny<Guid>())).ReturnsAsync(existingBook);
             var query = new GetBookByIdQuery(existingBook.BookId);
 

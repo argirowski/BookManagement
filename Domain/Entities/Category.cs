@@ -3,8 +3,8 @@
     public class Category
     {
         public Guid CategoryId { get; set; }
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
-        public ICollection<BookCategory> BookCategories { get; set; }
+        public ICollection<BookCategory> BookCategories { get; set; } = new List<BookCategory>();
     }
 }

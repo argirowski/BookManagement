@@ -18,7 +18,7 @@ namespace Persistence.Repositories
             return await _context.Categories.ToListAsync();
         }
 
-        public async Task<Category> GetCategoryByNameAsync(string name)
+        public async Task<Category?> GetCategoryByNameAsync(string name)
         {
             return await _context.Categories.FirstOrDefaultAsync(c => c.Name == name);
         }
