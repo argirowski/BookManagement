@@ -6,6 +6,7 @@ using Application.Features.Queries.GetAllBooks;
 using Application.Features.Queries.GetBookById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace API.Controllers
 {
@@ -14,10 +15,12 @@ namespace API.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IMapper? _mapper;
 
-        public BooksController(IMediator mediator)
+        public BooksController(IMediator mediator, IMapper? mapper = null)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -37,15 +40,17 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookDTO>> AddBook(AddBookCommand command)
+        public async Task<ActionResult<BookDTO>> AddBook(AddBookDTO dto)
         {
+            var command = _mapper.Map<AddBookCommand>(dto);
             var result = await _mediator.Send(command);
             return CreatedAtAction(nameof(GetBookById), new { id = result.BookId }, result);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BookDTO>> UpdateBook(Guid id, UpdateBookCommand command)
+        public async Task<ActionResult<BookDTO>> UpdateBook(Guid id, UpdateBookDTO dto)
         {
+            var command = _mapper.Map<UpdateBookCommand>(dto);
             command.BookId = id; // Ensure the command has the correct ID
             var result = await _mediator.Send(command);
             return Ok(result);

@@ -4,6 +4,7 @@ using Application.Features.Queries.GetAllBooks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using AutoMapper;
 
 namespace BookManagementUnitTests.ControllerTests
 {

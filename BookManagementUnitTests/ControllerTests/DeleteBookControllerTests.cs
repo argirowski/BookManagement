@@ -3,6 +3,7 @@ using Application.Features.Commands.DeleteBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using AutoMapper;
 
 namespace BookManagementUnitTests.ControllerTests
 {

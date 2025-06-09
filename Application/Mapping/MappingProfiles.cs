@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Application.DTOs;
+using Application.Features.Commands.AddBook;
+using Application.Features.Commands.UpdateBook;
 
 namespace Application.Mapping
 {
@@ -15,6 +17,10 @@ namespace Application.Mapping
                 .ForMember(dest => dest.BookCategories, opt => opt.MapFrom(src => src.CategoryNames.Select(name => new BookCategory { Category = new Category { Name = name } }).ToList()));
 
             CreateMap<Category, CategoryDTO>().ReverseMap();
+
+            CreateMap<AddBookDTO, AddBookCommand>();
+
+            CreateMap<UpdateBookDTO, UpdateBookCommand>();
         }
     }
 }
