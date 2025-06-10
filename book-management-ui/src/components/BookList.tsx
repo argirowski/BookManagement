@@ -5,6 +5,7 @@ import { BookDTO } from "../interfaces/interfaces";
 import ConfirmDeleteModal from "./modals/ConfirmDeleteModal";
 import LoadingSpinner from "./loader/LoadingSpinner";
 import { deleteBook, fetchBooks } from "../services/bookService";
+import PaginationControls from "./common/PaginationControls";
 
 const BookList: React.FC = () => {
   const [books, setBooks] = useState<BookDTO[]>([]);
@@ -12,13 +13,18 @@ const BookList: React.FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [bookToDelete, setBookToDelete] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [pageSize] = useState<number>(5);
+  const [totalPages, setTotalPages] = useState<number>(1);
   const navigate = useNavigate();
 
   useEffect(() => {
+    setLoading(true);
     const loadBooks = async () => {
       try {
-        const booksData = await fetchBooks();
-        setBooks(booksData);
+        const pagedResult = await fetchBooks(page, pageSize);
+        setBooks(pagedResult.items);
+        setTotalPages(pagedResult.totalPages);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -27,7 +33,7 @@ const BookList: React.FC = () => {
     };
 
     loadBooks();
-  }, []);
+  }, [page, pageSize]);
 
   const handleDelete = (id: string) => {
     setBookToDelete(id);
@@ -79,13 +85,13 @@ const BookList: React.FC = () => {
                   onClick={() => navigate(`/books/${book.bookId}`)}
                 >
                   View
-                </Button>{" "}
+                </Button>
                 <Button
                   variant="secondary"
                   onClick={() => navigate(`/books/${book.bookId}/edit`)}
                 >
                   Edit
-                </Button>{" "}
+                </Button>
                 <Button
                   variant="danger"
                   onClick={() => handleDelete(book.bookId!)}
@@ -97,7 +103,11 @@ const BookList: React.FC = () => {
           ))}
         </tbody>
       </Table>
-
+      <PaginationControls
+        page={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+      />
       <ConfirmDeleteModal
         show={showDeleteModal}
         onHide={() => setShowDeleteModal(false)}

@@ -7,6 +7,7 @@ using Application.Features.Queries.GetBookById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Application.Helpers;
 
 namespace API.Controllers
 {
@@ -24,9 +25,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookDTO>>> GetAllBooks()
+        public async Task<ActionResult<PagedResultDTO<BookDTO>>> GetAllBooks([FromQuery] PaginationParams pagination)
         {
-            var query = new GetAllBooksQuery();
+            var query = new GetAllBooksQuery { Page = pagination.PageNumber, PageSize = pagination.PageSize };
             var result = await _mediator.Send(query);
             return Ok(result);
         }

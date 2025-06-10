@@ -17,12 +17,17 @@ describe("bookService", () => {
     jest.clearAllMocks();
   });
 
-  it("fetchBooks returns data", async () => {
-    mockedAxios.get.mockResolvedValueOnce({ data: [mockBook] });
-    const result = await bookService.fetchBooks();
-    expect(result).toEqual([mockBook]);
+  it("fetchBooks returns paged data", async () => {
+    const pagedResult = {
+      items: [mockBook],
+      totalPages: 3,
+    };
+    mockedAxios.get.mockResolvedValueOnce({ data: pagedResult });
+    const result = await bookService.fetchBooks(1, 5);
+    expect(result).toEqual(pagedResult);
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      "https://localhost:7272/api/books"
+      "https://localhost:7272/api/books",
+      { params: { pageNumber: 1, pageSize: 5 } }
     );
   });
 

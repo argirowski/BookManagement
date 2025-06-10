@@ -29,7 +29,10 @@ describe("BookList Component", () => {
   });
 
   it("renders loading spinner initially", () => {
-    (bookService.fetchBooks as jest.Mock).mockResolvedValue([]);
+    // Simulate fetchBooks returning a promise that never resolves to keep spinner visible
+    (bookService.fetchBooks as jest.Mock).mockImplementation(
+      () => new Promise(() => {})
+    );
     render(
       <BrowserRouter>
         <BookList />
@@ -39,7 +42,10 @@ describe("BookList Component", () => {
   });
 
   it("renders books after loading", async () => {
-    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue({
+      items: mockBooks,
+      totalPages: 1,
+    });
     render(
       <BrowserRouter>
         <BookList />
@@ -52,7 +58,10 @@ describe("BookList Component", () => {
   });
 
   it("handles delete action", async () => {
-    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue({
+      items: mockBooks,
+      totalPages: 1,
+    });
     (bookService.deleteBook as jest.Mock).mockResolvedValue({});
 
     render(
@@ -72,24 +81,32 @@ describe("BookList Component", () => {
   });
 
   it("navigates to add new book page", async () => {
-    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue({
+      items: mockBooks,
+      totalPages: 1,
+    });
     render(
       <BrowserRouter>
         <BookList />
       </BrowserRouter>
     );
 
-    // Ensure the component renders completely before interacting with the button
     await screen.findByText("Book One");
 
     const addButton = screen.getByTestId("add-new-book-button");
     fireEvent.click(addButton);
 
-    expect(window.location.pathname).toBe("/books/new");
+    // Wait for rerender after navigation
+    await waitFor(() => {
+      expect(window.location.pathname).toBe("/books/new");
+    });
   });
 
   it("navigates to book details page when View is clicked", async () => {
-    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue({
+      items: mockBooks,
+      totalPages: 1,
+    });
     render(
       <BrowserRouter>
         <BookList />
@@ -99,11 +116,16 @@ describe("BookList Component", () => {
     await screen.findByText("Book One");
     const viewButton = screen.getAllByRole("button", { name: /view/i })[0];
     fireEvent.click(viewButton);
-    expect(window.location.pathname).toBe(`/books/1`);
+    await waitFor(() => {
+      expect(window.location.pathname).toBe(`/books/1`);
+    });
   });
 
   it("navigates to edit book page when Edit is clicked", async () => {
-    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue({
+      items: mockBooks,
+      totalPages: 1,
+    });
     render(
       <BrowserRouter>
         <BookList />
@@ -113,11 +135,16 @@ describe("BookList Component", () => {
     await screen.findByText("Book One");
     const editButton = screen.getAllByRole("button", { name: /edit/i })[0];
     fireEvent.click(editButton);
-    expect(window.location.pathname).toBe(`/books/1/edit`);
+    await waitFor(() => {
+      expect(window.location.pathname).toBe(`/books/1/edit`);
+    });
   });
 
   it("navigates to home page when Go to Home Page is clicked", async () => {
-    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue({
+      items: mockBooks,
+      totalPages: 1,
+    });
     render(
       <BrowserRouter>
         <BookList />
@@ -127,11 +154,16 @@ describe("BookList Component", () => {
     await screen.findByText("Book One");
     const homeButton = screen.getByRole("button", { name: /go to home page/i });
     fireEvent.click(homeButton);
-    expect(window.location.pathname).toBe("/");
+    await waitFor(() => {
+      expect(window.location.pathname).toBe("/");
+    });
   });
 
   it("closes the delete modal when Cancel is clicked", async () => {
-    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue({
+      items: mockBooks,
+      totalPages: 1,
+    });
     render(
       <BrowserRouter>
         <BookList />
@@ -152,7 +184,10 @@ describe("BookList Component", () => {
   });
 
   it("handles error when deleteBook fails", async () => {
-    (bookService.fetchBooks as jest.Mock).mockResolvedValue(mockBooks);
+    (bookService.fetchBooks as jest.Mock).mockResolvedValue({
+      items: mockBooks,
+      totalPages: 1,
+    });
     (bookService.deleteBook as jest.Mock).mockRejectedValue(
       new Error("Delete failed")
     );

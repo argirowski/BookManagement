@@ -1,9 +1,11 @@
 import axios from "axios";
 import { BookDTO } from "../interfaces/interfaces";
 
-export const fetchBooks = async () => {
+export const fetchBooks = async (pageNumber = 1, pageSize = 5) => {
   try {
-    const response = await axios.get("https://localhost:7272/api/books");
+    const response = await axios.get(`https://localhost:7272/api/books`, {
+      params: { pageNumber, pageSize },
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching books:", error);
