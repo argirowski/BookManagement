@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as bookService from "../services/bookService";
+import * as bookService from "../../services/bookService";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;

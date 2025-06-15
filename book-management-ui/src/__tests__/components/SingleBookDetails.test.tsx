@@ -1,10 +1,10 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import SingleBookDetails from "../components/SingleBookDetails";
-import * as bookService from "../services/bookService";
+import SingleBookDetails from "../../components/SingleBookDetails";
+import * as bookService from "../../services/bookService";
 
-jest.mock("../services/bookService");
+jest.mock("../../services/bookService");
 
 const mockBook = {
   bookId: "1",

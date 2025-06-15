@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import LoadingSpinner from "../components/loader/LoadingSpinner";
+import LoadingSpinner from "../../../components/loader/LoadingSpinner";
 
 describe("LoadingSpinner Component", () => {
   test("renders a spinner with the correct role and visually hidden text", () => {

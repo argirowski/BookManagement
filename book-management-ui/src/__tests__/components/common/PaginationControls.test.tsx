@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import PaginationControls from "../components/common/PaginationControls";
+import PaginationControls from "../../../components/common/PaginationControls";
 
 describe("PaginationControls", () => {
   it("renders the correct number of pages and highlights the active page", () => {

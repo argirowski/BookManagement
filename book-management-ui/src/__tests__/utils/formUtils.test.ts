@@ -3,7 +3,7 @@ import {
   handleGoBack,
   handleModalClose,
   handleModalConfirm,
-} from "../utils/formUtils";
+} from "../../utils/formUtils";
 
 describe("formatDate", () => {
   it("formats a valid date string to YYYY-MM-DD", () => {

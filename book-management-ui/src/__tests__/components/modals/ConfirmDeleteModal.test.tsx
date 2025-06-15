@@ -1,31 +1,29 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import ConfirmNavigationModal from "../components/modals/ConfirmNavigationModal";
+import ConfirmDeleteModal from "../../../components/modals/ConfirmDeleteModal";
 
-describe("ConfirmNavigationModal Component", () => {
+describe("ConfirmDeleteModal Component", () => {
   const mockOnHide = jest.fn();
   const mockOnConfirm = jest.fn();
 
   test("renders with correct title and body text", () => {
     render(
-      <ConfirmNavigationModal
+      <ConfirmDeleteModal
         show={true}
         onHide={mockOnHide}
         onConfirm={mockOnConfirm}
       />
     );
 
-    expect(screen.getByText("Confirm Navigation")).toBeInTheDocument();
+    expect(screen.getByText("Confirm Delete")).toBeInTheDocument();
     expect(
-      screen.getByText(
-        "Do you really want to go back? You will lose all of your changes."
-      )
+      screen.getByText("Are you sure you want to delete this item?")
     ).toBeInTheDocument();
   });
 
   test("calls onConfirm when 'Yes' button is clicked", () => {
     render(
-      <ConfirmNavigationModal
+      <ConfirmDeleteModal
         show={true}
         onHide={mockOnHide}
         onConfirm={mockOnConfirm}
@@ -40,7 +38,7 @@ describe("ConfirmNavigationModal Component", () => {
 
   test("calls onHide when 'No' button is clicked", () => {
     render(
-      <ConfirmNavigationModal
+      <ConfirmDeleteModal
         show={true}
         onHide={mockOnHide}
         onConfirm={mockOnConfirm}

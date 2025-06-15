@@ -2,10 +2,10 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
-import AddBook from "../components/AddBook";
+import AddBook from "../../components/AddBook";
 
 // jest.mock calls must be at the very top for proper mocking
-jest.mock("../services/bookService");
+jest.mock("../../services/bookService");
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => jest.fn(),
@@ -17,7 +17,7 @@ describe("AddBook Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    addBookMock = require("../services/bookService").addBook;
+    addBookMock = require("../../services/bookService").addBook;
     mockNavigate = require("react-router-dom").useNavigate();
   });
 
